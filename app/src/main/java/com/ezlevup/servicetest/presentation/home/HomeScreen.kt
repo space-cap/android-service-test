@@ -1,7 +1,5 @@
 package com.ezlevup.servicetest.presentation.home
 
-import android.content.Intent
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,12 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import com.ezlevup.servicetest.service.MyForegroundService
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 
 @Composable
 fun HomeScreen(
-
+    homeViewModel: HomeViewModel = viewModel()
 ) {
     // 화면 중앙에 버튼을 배치하기 위한 Column 입니다.
     Column(
@@ -23,33 +21,19 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val context = LocalContext.current
 
         // "서비스 시작" 버튼입니다.
         Button(onClick = {
-            // MyForegroundService를 시작하기 위한 Intent를 생성합니다.
-            val intent = Intent(context, MyForegroundService::class.java)
-
-            // Android Oreo (API 26) 버전 이상과 미만을 구분하여 서비스를 시작합니다.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // Oreo 이상: startForegroundService()를 사용하여 포어그라운드 서비스를 시작합니다.
-                context.startForegroundService(intent)
-            } else {
-                // Oreo 미만: startService()를 사용하여 일반 서비스를 시작합니다.
-                // MyForegroundService의 onStartCommand에서 startForeground()를 호출하므로
-                // 시스템에 의해 포어그라운드 서비스로 전환됩니다.
-                context.startService(intent)
-            }
+            // ViewModel에 서비스 시작을 요청합니다.
+            homeViewModel.startMyService()
         }) {
             Text(text = "서비스 시작")
         }
 
         // "서비스 중지" 버튼입니다.
         Button(onClick = {
-            // MyForegroundService를 중지하기 위한 Intent를 생성합니다.
-            val intent = Intent(context, MyForegroundService::class.java)
-            // 서비스를 중지합니다.
-            context.stopService(intent)
+            // ViewModel에 서비스 중지를 요청합니다.
+            homeViewModel.stopMyService()
         }) {
             Text(text = "서비스 중지")
         }

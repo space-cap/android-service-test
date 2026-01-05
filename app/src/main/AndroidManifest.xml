@@ -4,7 +4,8 @@
 
     <!-- 포어그라운드 서비스 실행 권한을 선언합니다. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,7 @@
             android:name=".service.MyForegroundService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="specialUse"/>
+            android:foregroundServiceType="dataSync"/>
 
         <activity
             android:name=".MainActivity"
