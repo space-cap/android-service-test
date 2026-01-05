@@ -22,20 +22,28 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // "서비스 시작" 버튼입니다.
+        // "포어그라운드 서비스 시작" 버튼입니다.
         Button(onClick = {
             // ViewModel에 서비스 시작을 요청합니다.
             homeViewModel.startMyService()
         }) {
-            Text(text = "서비스 시작")
+            Text(text = "포어그라운드 서비스 시작")
         }
 
-        // "서비스 중지" 버튼입니다.
+        // "포어그라운드 서비스 중지" 버튼입니다.
         Button(onClick = {
             // ViewModel에 서비스 중지를 요청합니다.
             homeViewModel.stopMyService()
         }) {
-            Text(text = "서비스 중지")
+            Text(text = "포어그라운드 서비스 중지")
+        }
+
+        // "백그라운드 서비스 시작" 버튼입니다.
+        Button(onClick = {
+            // ViewModel에 서비스 시작을 요청합니다.
+            homeViewModel.startBackgroundService()
+        }) {
+            Text(text = "백그라운드 서비스 시작")
         }
     }
 }
