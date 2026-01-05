@@ -1,6 +1,7 @@
 package com.ezlevup.servicetest.presentation.home
 
 import android.content.Intent
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,9 +29,17 @@ fun HomeScreen(
         Button(onClick = {
             // MyForegroundService를 시작하기 위한 Intent를 생성합니다.
             val intent = Intent(context, MyForegroundService::class.java)
-            // Android Oreo (API 26) 버전 이상에서는
-            // 포어그라운드 서비스를 시작하려면 startForegroundService()를 사용해야 합니다.
-            context.startForegroundService(intent)
+
+            // Android Oreo (API 26) 버전 이상과 미만을 구분하여 서비스를 시작합니다.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // Oreo 이상: startForegroundService()를 사용하여 포어그라운드 서비스를 시작합니다.
+                context.startForegroundService(intent)
+            } else {
+                // Oreo 미만: startService()를 사용하여 일반 서비스를 시작합니다.
+                // MyForegroundService의 onStartCommand에서 startForeground()를 호출하므로
+                // 시스템에 의해 포어그라운드 서비스로 전환됩니다.
+                context.startService(intent)
+            }
         }) {
             Text(text = "서비스 시작")
         }

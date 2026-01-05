@@ -7,7 +7,7 @@
 - **파일 경로**: `app/src/main/java/com/ezlevup/servicetest/service/MyForegroundService.kt`
 - **주요 기능**:
     - `Service`를 상속받아 포어그라운드 서비스를 구현합니다.
-    - 서비스가 시작되면 `startForegroundService()`를 통해 포어그라운드에서 동작하고, 사용자에게 서비스 실행을 알리는 알림(Notification)을 표시합니다.
+    - 서비스가 시작되면 `onStartCommand` 내에서 `startForeground()`를 호출하여 스스로 포어그라운드로 전환하고, 사용자에게 서비스 실행을 알리는 알림(Notification)을 표시합니다.
     - 코루틴을 사용하여 백그라운드에서 1초마다 로그를 출력하여 서비스가 동작 중임을 확인합니다.
     - 서비스가 종료되면 `onDestroy()`에서 코루틴 작업을 취소합니다.
 
@@ -17,7 +17,9 @@
 - **주요 기능**:
     - Jetpack Compose를 사용하여 UI를 구성합니다.
     - "서비스 시작" 버튼과 "서비스 중지" 버튼을 추가합니다.
-    - 각 버튼 클릭 시 `Intent`를 사용하여 `MyForegroundService`를 시작하거나 중지시킵니다.
+    - "서비스 시작" 버튼 클릭 시, 안드로이드 버전에 따라 분기 처리합니다.
+        - **Android Oreo (API 26) 이상**: `startForegroundService()`를 호출하여 서비스를 시작합니다. 이 메서드는 백그라운드에서 5초 이내에 서비스의 `startForeground()`를 호출해야 합니다.
+        - **Android Oreo (API 26) 미만**: `startService()`를 호출하여 서비스를 시작합니다.
 
 ## 3. AndroidManifest.xml 수정
 
