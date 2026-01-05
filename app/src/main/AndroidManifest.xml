@@ -25,6 +25,11 @@
             android:exported="false"
             android:foregroundServiceType="dataSync"/>
 
+        <service
+            android:name=".service.MyBoundService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
