@@ -1,0 +1,50 @@
+# Created by Android Studio
+
+# Built application files
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Local configuration properties (sdk.dir, etc)
+local.properties
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor files
+.idea/navEditor.xml
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/libraries
+
+# Gradle
+.gradle
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (if you want to keep it private)
+# google-services.json
+
+# Environment files
+.env
