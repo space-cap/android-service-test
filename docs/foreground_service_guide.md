@@ -24,9 +24,15 @@
 - **파일 경로**: `app/src/main/AndroidManifest.xml`
 - **주요 기능**:
     - `<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />` 권한을 추가하여 앱이 포어그라운드 서비스를 실행할 수 있도록 합니다.
-    - `<service>` 태그를 사용하여 `MyForegroundService`를 시스템에 등록합니다.
+    - Android 12 (API 31) 이상에서는 `foregroundServiceType`을 지정해야 하므로, `specialUse` 타입을 사용하기 위해 `<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />` 권한을 추가합니다.
+    - `<service>` 태그에 `android:foregroundServiceType="specialUse"` 속성을 추가하여 서비스 유형을 명시하고, `MyForegroundService`를 시스템에 등록합니다.
 
-## 실행 방법
+## 4. 오류 및 해결: `MissingForegroundServiceTypeException`
+
+- **오류 원인**: Android 12 (API 31) 이상을 타겟으로 하는 앱에서 포어그라운드 서비스를 시작할 때 `AndroidManifest.xml`에 `foregroundServiceType`을 명시하지 않으면 `MissingForegroundServiceTypeException`이 발생합니다.
+- **해결**: `AndroidManifest.xml`의 `<service>` 태그에 `android:foregroundServiceType`을 추가하고, 필요에 따라 해당 타입에 맞는 권한을 선언해주어야 합니다. 이 프로젝트에서는 `specialUse` 타입을 사용하고 관련 권한을 추가했습니다.
+
+## 5. 실행 방법
 
 1. Android Studio에서 프로젝트를 빌드하고 실행합니다.
 2. 앱이 실행되면 "서비스 시작" 버튼을 클릭합니다.
